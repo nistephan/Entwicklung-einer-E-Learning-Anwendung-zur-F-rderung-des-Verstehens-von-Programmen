@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<title>Help</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="javascript:history.back()">Java Invokes</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="help.html">Hilfe</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="center">
+			<h1>Anleitung</h1>
+			<p>Ziel dieser Anwendung ist es, Methodenaufrufe inklusive Signatur, Art und Klasse zu verstehen. Hierzu stehen zwei Modi zur Verfügung, die nachfolgend erklärt werden.<br>In beiden Modi können einzelnen Zeilen angeklickt werden. Fall in dieser Zeile (mindestens) ein Methodenaufruf enthalten ist, so werden weitere Informationen angezeigt.</p>
+			<h1>Modus Browse</h1>
+			<p>Falls in dieser Zeile ein Methodenaufruf stattfindet, so werden alle Informationen zu dem/den Aufruf(en) angezeigt.</p>
+			<h1>Modus Quiz</h1>
+			<p>Falls in dieser Zeile ein Methodenaufruf stattfindet, so werden alle Informationen zu dem/den Aufruf(en) abgefragt. Sobald alle Informationen eingegeben wurden, können die Eingaben mit dem Check Button auf Richtigkeit überprüft werden.</p>
+			<h1>Hinweise</h1>
+			<ul>
+				<li>Falls in einer Signatur Klassen enthalten sind aus dem Package "java.lang" wie z.B. "java.lang.String", so wird als Eingabe die verkürzte Version "String" akzteptiert.</li>
+				<li>Methodenaufrufe sind immer nur einer Zeile zugewiesen, auch wenn sich diese über mehrere Zeile erstrecken. Es ist immer die erste Zeile, in der der Code für einen solchen Aufruf beginnt. In folgendem Beispiel ist es auch die erste Zeile, obwohl der eigentliche Aufruf in der zweiten Zeile steht.<br><code>public static final Rational MAX_VALUE</code><code>		= new Rational(Integer.MAX_VALUE, 1);</code></li>
+				<li>Es werden auch implizite Methodenaufrufe angezeigt. Wie z.B. super()-Aufrufe oder Autoboxing. Diese sind für Anfänger schwer zu erkennen, da sie implizites Wissen voraussetzen.</li>
+				<li>Falls mehrere Methodenaufrufe innerhalb einer Zeile stehen, so werden diese chronologisch sowohl im Browse Modus angezeigt, als auch im Quiz Modus abgefragt.</li>
+			</ul>
+		</div>
+	</div>
+
+</body>
+
+</html>

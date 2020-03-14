@@ -1,0 +1,66 @@
+
+body { padding-top: 50px; }
+
+.codeDark {
+	background: #cccccc
+}
+
+.codeBright {
+	background: #ffffff
+}
+
+.result {
+	display: none;
+}
+
+pre {
+	counter-reset: line;
+}
+
+code {
+	counter-increment: line;
+	font-family: monospace;
+	white-space: pre-wrap;
+	display: block;
+	color: black;
+}
+
+code:before {
+	display: inline-block;
+	width: 4em;
+	padding-left: auto;
+	margin-left: auto;
+	text-align: right;
+	content: counter(line) " ";
+}
+
+code:nth-child(even) {
+	background-color: #ffffff;
+}
+
+.accordion {
+	counter-increment: line;
+	cursor: pointer;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 15px;
+}
+
+.accordion:nth-child(odd) {
+	background-color: #eee;
+}
+
+.active,
+.accordion:hover {
+	background-color: #ccc;
+}
+
+.panel {
+	padding: 16px;
+	padding-left: 60px;
+	display: none;
+	background-color: white;
+	overflow: hidden;
+}

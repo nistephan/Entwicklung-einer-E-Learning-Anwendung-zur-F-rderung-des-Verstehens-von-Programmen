@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Java Invokes</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="styles.css">
+<script src="main.js"></script>
+</head>
+<body onload="onLoadPage();">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Java Invokes</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="nav-item">
+					<select class="form-control" id="cb_mode" onChange="setMode()">
+						<option value="Mode_1" id="Mode_1" selected="selected">Browse</option>
+						<option value="Mode_2" id="Mode_2">Quiz</option>
+					</select>
+
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="help.html">Hilfe</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="content">
+		<code class="accordion" id ="1" onclick="clickedLine(this)">// Rational.java</code><div id="1panel" class="panel"></div>
+<code class="accordion" id ="2" onclick="clickedLine(this)">import java.util.Scanner;</code><div id="2panel" class="panel"></div>
+<code class="accordion" id ="3" onclick="clickedLine(this)">import java.util.Locale;</code><div id="3panel" class="panel"></div>
+<code class="accordion" id ="4" onclick="clickedLine(this)">import java.util.NoSuchElementException;</code><div id="4panel" class="panel"></div>
+<code class="accordion" id ="5" onclick="clickedLine(this)">import java.util.Formatter;</code><div id="5panel" class="panel"></div>
+<code class="accordion" id ="6" onclick="clickedLine(this)">import java.util.Formattable;</code><div id="6panel" class="panel"></div>
+<code class="accordion" id ="7" onclick="clickedLine(this)">import java.util.regex.Pattern;</code><div id="7panel" class="panel"></div>
+<code class="accordion" id ="8" onclick="clickedLine(this)">import static java.util.FormattableFlags.ALTERNATE;</code><div id="8panel" class="panel"></div>
+<code class="accordion" id ="9" onclick="clickedLine(this)">import static java.util.FormattableFlags.LEFT_JUSTIFY;</code><div id="9panel" class="panel"></div>
+<code class="accordion" id ="10" onclick="clickedLine(this)">import java.util.FormatFlagsConversionMismatchException;</code><div id="10panel" class="panel"></div>
+<code class="accordion" id ="11" onclick="clickedLine(this)">import java.util.IllegalFormatPrecisionException;</code><div id="11panel" class="panel"></div>
+<code class="accordion" id ="12" onclick="clickedLine(this)">import java.util.IllegalFormatException;</code><div id="12panel" class="panel"></div>
+<code class="accordion" id ="13" onclick="clickedLine(this)"></code><div id="13panel" class="panel"></div>
+<code class="accordion" id ="14" onclick="clickedLine(this)">/**</code><div id="14panel" class="panel"></div>
+<code class="accordion" id ="15" onclick="clickedLine(this)"> * A rational number, stored as numerator and denominator integer pair.</code><div id="15panel" class="panel"></div>
+<code class="accordion" id ="16" onclick="clickedLine(this)"> * Rational is a value-based class.</code><div id="16panel" class="panel"></div>
+<code class="accordion" id ="17" onclick="clickedLine(this)"> * @author H.Drachenfels</code><div id="17panel" class="panel"></div>
+<code class="accordion" id ="18" onclick="clickedLine(this)"> * @version 1.7.2019</code><div id="18panel" class="panel"></div>
+<code class="accordion" id ="19" onclick="clickedLine(this)"> */</code><div id="19panel" class="panel"></div>
+<code class="accordion" id ="20" onclick="clickedLine(this)">public final class Rational extends Number</code><div id="20panel" class="panel"></div>
+<code class="accordion" id ="21" onclick="clickedLine(this)">    implements Comparable&lt;Rational&gt;, Formattable {</code><div id="21panel" class="panel"></div>
+<code class="accordion" id ="22" onclick="clickedLine(this)"></code><div id="22panel" class="panel"></div>
+<code class="accordion" id ="23" onclick="clickedLine(this)">    /**</code><div id="23panel" class="panel"></div>
+<code class="accordion" id ="24" onclick="clickedLine(this)">     * The number 0 as Rational.</code><div id="24panel" class="panel"></div>
+<code class="accordion" id ="25" onclick="clickedLine(this)">     */</code><div id="25panel" class="panel"></div>
+<code class="accordion" id ="26" onclick="clickedLine(this)">    public static final Rational ZERO = new Rational(0, 1);</code><div id="26panel" class="panel"></div>
+<code class="accordion" id ="27" onclick="clickedLine(this)"></code><div id="27panel" class="panel"></div>
+<code class="accordion" id ="28" onclick="clickedLine(this)">    /**</code><div id="28panel" class="panel"></div>
+<code class="accordion" id ="29" onclick="clickedLine(this)">     * The number 1 as Rational.</code><div id="29panel" class="panel"></div>
+<code class="accordion" id ="30" onclick="clickedLine(this)">     */</code><div id="30panel" class="panel"></div>
+<code class="accordion" id ="31" onclick="clickedLine(this)">    public static final Rational ONE = new Rational(1, 1);</code><div id="31panel" class="panel"></div>
+<code class="accordion" id ="32" onclick="clickedLine(this)"></code><div id="32panel" class="panel"></div>
+<code class="accordion" id ="33" onclick="clickedLine(this)">    /**</code><div id="33panel" class="panel"></div>
+<code class="accordion" id ="34" onclick="clickedLine(this)">     * The largest positive value of type Rational, Integer.MAX_VALUE.</code><div id="34panel" class="panel"></div>
+<code class="accordion" id ="35" onclick="clickedLine(this)">     */</code><div id="35panel" class="panel"></div>
+<code class="accordion" id ="36" onclick="clickedLine(this)">    public static final Rational MAX_VALUE</code><div id="36panel" class="panel"></div>
+<code class="accordion" id ="37" onclick="clickedLine(this)">        = new Rational(Integer.MAX_VALUE, 1);</code><div id="37panel" class="panel"></div>
+<code class="accordion" id ="38" onclick="clickedLine(this)"></code><div id="38panel" class="panel"></div>
+<code class="accordion" id ="39" onclick="clickedLine(this)">    /**</code><div id="39panel" class="panel"></div>
+<code class="accordion" id ="40" onclick="clickedLine(this)">     * The smallest positive nonzero value of type Rational,</code><div id="40panel" class="panel"></div>
+<code class="accordion" id ="41" onclick="clickedLine(this)">     * 1 / Integer.MAX_VALUE.</code><div id="41panel" class="panel"></div>
+<code class="accordion" id ="42" onclick="clickedLine(this)">     */</code><div id="42panel" class="panel"></div>
+<code class="accordion" id ="43" onclick="clickedLine(this)">    public static final Rational MIN_VALUE</code><div id="43panel" class="panel"></div>
+<code class="accordion" id ="44" onclick="clickedLine(this)">        = new Rational(1, Integer.MAX_VALUE);</code><div id="44panel" class="panel"></div>
+<code class="accordion" id ="45" onclick="clickedLine(this)"></code><div id="45panel" class="panel"></div>
+<code class="accordion" id ="46" onclick="clickedLine(this)">    /**</code><div id="46panel" class="panel"></div>
+<code class="accordion" id ="47" onclick="clickedLine(this)">     * The numerator part of the rational number.</code><div id="47panel" class="panel"></div>
+<code class="accordion" id ="48" onclick="clickedLine(this)">     */</code><div id="48panel" class="panel"></div>
+<code class="accordion" id ="49" onclick="clickedLine(this)">    private final int numerator;</code><div id="49panel" class="panel"></div>
+<code class="accordion" id ="50" onclick="clickedLine(this)"></code><div id="50panel" class="panel"></div>
+<code class="accordion" id ="51" onclick="clickedLine(this)">    /**</code><div id="51panel" class="panel"></div>
+<code class="accordion" id ="52" onclick="clickedLine(this)">     * The denominator part of the rational number.</code><div id="52panel" class="panel"></div>
+<code class="accordion" id ="53" onclick="clickedLine(this)">     * Always greater or equal 1.</code><div id="53panel" class="panel"></div>
+<code class="accordion" id ="54" onclick="clickedLine(this)">     * The denominator is 1 if numerator is 0.</code><div id="54panel" class="panel"></div>
+<code class="accordion" id ="55" onclick="clickedLine(this)">     */</code><div id="55panel" class="panel"></div>
+<code class="accordion" id ="56" onclick="clickedLine(this)">    private final int denominator;</code><div id="56panel" class="panel"></div>
+<code class="accordion" id ="57" onclick="clickedLine(this)"></code><div id="57panel" class="panel"></div>
+<code class="accordion" id ="58" onclick="clickedLine(this)">    /**</code><div id="58panel" class="panel"></div>
+<code class="accordion" id ="59" onclick="clickedLine(this)">     * Rational number with numerator n and denominator d.</code><div id="59panel" class="panel"></div>
+<code class="accordion" id ="60" onclick="clickedLine(this)">     * For denominator 0 an IllegalArgumentException is thrown.</code><div id="60panel" class="panel"></div>
+<code class="accordion" id ="61" onclick="clickedLine(this)">     * @param n the numerator</code><div id="61panel" class="panel"></div>
+<code class="accordion" id ="62" onclick="clickedLine(this)">     * @param d the denominator (must not be 0)</code><div id="62panel" class="panel"></div>
+<code class="accordion" id ="63" onclick="clickedLine(this)">     * @return a Rational with the specified value</code><div id="63panel" class="panel"></div>
+<code class="accordion" id ="64" onclick="clickedLine(this)">     */</code><div id="64panel" class="panel"></div>
+<code class="accordion" id ="65" onclick="clickedLine(this)">    public static Rational valueOf(int n, int d) {</code><div id="65panel" class="panel"></div>
+<code class="accordion" id ="66" onclick="clickedLine(this)">        return new Rational(n, d);</code><div id="66panel" class="panel"></div>
+<code class="accordion" id ="67" onclick="clickedLine(this)">    }</code><div id="67panel" class="panel"></div>
+<code class="accordion" id ="68" onclick="clickedLine(this)"></code><div id="68panel" class="panel"></div>
+<code class="accordion" id ="69" onclick="clickedLine(this)">    /**</code><div id="69panel" class="panel"></div>
+<code class="accordion" id ="70" onclick="clickedLine(this)">     * Converts an integer to a rational number.</code><div id="70panel" class="panel"></div>
+<code class="accordion" id ="71" onclick="clickedLine(this)">     * This factory method is provided in preference to an (int) constructor</code><div id="71panel" class="panel"></div>
+<code class="accordion" id ="72" onclick="clickedLine(this)">     * because it allows for reuse of frequently used Rationals.</code><div id="72panel" class="panel"></div>
+<code class="accordion" id ="73" onclick="clickedLine(this)">     * @param n the integer to convert</code><div id="73panel" class="panel"></div>
+<code class="accordion" id ="74" onclick="clickedLine(this)">     * @return a Rational with the specified value</code><div id="74panel" class="panel"></div>
+<code class="accordion" id ="75" onclick="clickedLine(this)">     */</code><div id="75panel" class="panel"></div>
+<code class="accordion" id ="76" onclick="clickedLine(this)">    public static Rational valueOf(int n) {</code><div id="76panel" class="panel"></div>
+<code class="accordion" id ="77" onclick="clickedLine(this)">        switch (n) {</code><div id="77panel" class="panel"></div>
+<code class="accordion" id ="78" onclick="clickedLine(this)">        case 0:</code><div id="78panel" class="panel"></div>
+<code class="accordion" id ="79" onclick="clickedLine(this)">            return ZERO;</code><div id="79panel" class="panel"></div>
+<code class="accordion" id ="80" onclick="clickedLine(this)">        case 1:</code><div id="80panel" class="panel"></div>
+<code class="accordion" id ="81" onclick="clickedLine(this)">            return ONE;</code><div id="81panel" class="panel"></div>
+<code class="accordion" id ="82" onclick="clickedLine(this)">        case Integer.MAX_VALUE:</code><div id="82panel" class="panel"></div>
+<code class="accordion" id ="83" onclick="clickedLine(this)">            return MAX_VALUE;</code><div id="83panel" class="panel"></div>
+<code class="accordion" id ="84" onclick="clickedLine(this)">        default:</code><div id="84panel" class="panel"></div>
+<code class="accordion" id ="85" onclick="clickedLine(this)">            return new Rational(n, 1);</code><div id="85panel" class="panel"></div>
+<code class="accordion" id ="86" onclick="clickedLine(this)">        }</code><div id="86panel" class="panel"></div>
+<code class="accordion" id ="87" onclick="clickedLine(this)">    }</code><div id="87panel" class="panel"></div>
+<code class="accordion" id ="88" onclick="clickedLine(this)"></code><div id="88panel" class="panel"></div>
+<code class="accordion" id ="89" onclick="clickedLine(this)">    /**</code><div id="89panel" class="panel"></div>
+<code class="accordion" id ="90" onclick="clickedLine(this)">     * Converts a string to a rational number.</code><div id="90panel" class="panel"></div>
+<code class="accordion" id ="91" onclick="clickedLine(this)">     * The string must have the format specified by toString.</code><div id="91panel" class="panel"></div>
+<code class="accordion" id ="92" onclick="clickedLine(this)">     * Otherwise NumberFormatException is thrown.</code><div id="92panel" class="panel"></div>
+<code class="accordion" id ="93" onclick="clickedLine(this)">     * @param s the string to convert</code><div id="93panel" class="panel"></div>
+<code class="accordion" id ="94" onclick="clickedLine(this)">     * @return a Rational with the specified value</code><div id="94panel" class="panel"></div>
+<code class="accordion" id ="95" onclick="clickedLine(this)">     */</code><div id="95panel" class="panel"></div>
+<code class="accordion" id ="96" onclick="clickedLine(this)">    public static Rational valueOf(String s) {</code><div id="96panel" class="panel"></div>
+<code class="accordion" id ="97" onclick="clickedLine(this)">        Scanner sc = new Scanner(s);</code><div id="97panel" class="panel"></div>
+<code class="accordion" id ="98" onclick="clickedLine(this)">        if (!sc.hasNext(FORMAT)) {</code><div id="98panel" class="panel"></div>
+<code class="accordion" id ="99" onclick="clickedLine(this)">            throw new NumberFormatException(s);</code><div id="99panel" class="panel"></div>
+<code class="accordion" id ="100" onclick="clickedLine(this)">        }</code><div id="100panel" class="panel"></div>
+<code class="accordion" id ="101" onclick="clickedLine(this)"></code><div id="101panel" class="panel"></div>
+<code class="accordion" id ="102" onclick="clickedLine(this)">        sc.useDelimiter(&quot;/&quot;);</code><div id="102panel" class="panel"></div>
+<code class="accordion" id ="103" onclick="clickedLine(this)">        return new Rational(sc.nextInt(), sc.nextInt());</code><div id="103panel" class="panel"></div>
+<code class="accordion" id ="104" onclick="clickedLine(this)">    }</code><div id="104panel" class="panel"></div>
+<code class="accordion" id ="105" onclick="clickedLine(this)"></code><div id="105panel" class="panel"></div>
+<code class="accordion" id ="106" onclick="clickedLine(this)">    private static final Pattern FORMAT = Pattern.compile(&quot;^[+-]?\\d+/\\d+$&quot;);</code><div id="106panel" class="panel"></div>
+<code class="accordion" id ="107" onclick="clickedLine(this)"></code><div id="107panel" class="panel"></div>
+<code class="accordion" id ="108" onclick="clickedLine(this)">    private Rational(long n, long d) {</code><div id="108panel" class="panel"></div>
+<code class="accordion" id ="109" onclick="clickedLine(this)">        if (d == 0) {</code><div id="109panel" class="panel"></div>
+<code class="accordion" id ="110" onclick="clickedLine(this)">            throw new IllegalArgumentException(&quot;invalid denominator 0&quot;);</code><div id="110panel" class="panel"></div>
+<code class="accordion" id ="111" onclick="clickedLine(this)">        }</code><div id="111panel" class="panel"></div>
+<code class="accordion" id ="112" onclick="clickedLine(this)"></code><div id="112panel" class="panel"></div>
+<code class="accordion" id ="113" onclick="clickedLine(this)">        if (n == 0) {</code><div id="113panel" class="panel"></div>
+<code class="accordion" id ="114" onclick="clickedLine(this)">            this.numerator = 0;</code><div id="114panel" class="panel"></div>
+<code class="accordion" id ="115" onclick="clickedLine(this)">            this.denominator = 1;</code><div id="115panel" class="panel"></div>
+<code class="accordion" id ="116" onclick="clickedLine(this)">            return;</code><div id="116panel" class="panel"></div>
+<code class="accordion" id ="117" onclick="clickedLine(this)">        }</code><div id="117panel" class="panel"></div>
+<code class="accordion" id ="118" onclick="clickedLine(this)"></code><div id="118panel" class="panel"></div>
+<code class="accordion" id ="119" onclick="clickedLine(this)">        int sign = Long.signum(n) * Long.signum(d);</code><div id="119panel" class="panel"></div>
+<code class="accordion" id ="120" onclick="clickedLine(this)">        long nn = Math.abs(n);</code><div id="120panel" class="panel"></div>
+<code class="accordion" id ="121" onclick="clickedLine(this)">        long dd = Math.abs(d);</code><div id="121panel" class="panel"></div>
+<code class="accordion" id ="122" onclick="clickedLine(this)"></code><div id="122panel" class="panel"></div>
+<code class="accordion" id ="123" onclick="clickedLine(this)">        if (dd != 1) {</code><div id="123panel" class="panel"></div>
+<code class="accordion" id ="124" onclick="clickedLine(this)">            long f = gcd(nn, dd);</code><div id="124panel" class="panel"></div>
+<code class="accordion" id ="125" onclick="clickedLine(this)">            nn /= f;</code><div id="125panel" class="panel"></div>
+<code class="accordion" id ="126" onclick="clickedLine(this)">            dd /= f;</code><div id="126panel" class="panel"></div>
+<code class="accordion" id ="127" onclick="clickedLine(this)">        }</code><div id="127panel" class="panel"></div>
+<code class="accordion" id ="128" onclick="clickedLine(this)"></code><div id="128panel" class="panel"></div>
+<code class="accordion" id ="129" onclick="clickedLine(this)">        if (nn &gt; Integer.MAX_VALUE) {</code><div id="129panel" class="panel"></div>
+<code class="accordion" id ="130" onclick="clickedLine(this)">            throw new ArithmeticException(</code><div id="130panel" class="panel"></div>
+<code class="accordion" id ="131" onclick="clickedLine(this)">                String.format(&quot;numerator overflow: %d/%d&quot;, sign * nn, dd));</code><div id="131panel" class="panel"></div>
+<code class="accordion" id ="132" onclick="clickedLine(this)">        }</code><div id="132panel" class="panel"></div>
+<code class="accordion" id ="133" onclick="clickedLine(this)"></code><div id="133panel" class="panel"></div>
+<code class="accordion" id ="134" onclick="clickedLine(this)">        if (dd &gt; Integer.MAX_VALUE) {</code><div id="134panel" class="panel"></div>
+<code class="accordion" id ="135" onclick="clickedLine(this)">            throw new ArithmeticException(</code><div id="135panel" class="panel"></div>
+<code class="accordion" id ="136" onclick="clickedLine(this)">                String.format(&quot;denominator overflow: %d/%d&quot;, sign * nn, dd));</code><div id="136panel" class="panel"></div>
+<code class="accordion" id ="137" onclick="clickedLine(this)">        }</code><div id="137panel" class="panel"></div>
+<code class="accordion" id ="138" onclick="clickedLine(this)"></code><div id="138panel" class="panel"></div>
+<code class="accordion" id ="139" onclick="clickedLine(this)">        this.numerator = sign * (int) nn;</code><div id="139panel" class="panel"></div>
+<code class="accordion" id ="140" onclick="clickedLine(this)">        this.denominator = (int) dd;</code><div id="140panel" class="panel"></div>
+<code class="accordion" id ="141" onclick="clickedLine(this)">    }</code><div id="141panel" class="panel"></div>
+<code class="accordion" id ="142" onclick="clickedLine(this)"></code><div id="142panel" class="panel"></div>
+<code class="accordion" id ="143" onclick="clickedLine(this)">    /**</code><div id="143panel" class="panel"></div>
+<code class="accordion" id ="144" onclick="clickedLine(this)">     * Computes the greates common divisor using Euclids algorithm.</code><div id="144panel" class="panel"></div>
+<code class="accordion" id ="145" onclick="clickedLine(this)">     * For negative numbers the result is undefined.</code><div id="145panel" class="panel"></div>
+<code class="accordion" id ="146" onclick="clickedLine(this)">     * @param a a positive number</code><div id="146panel" class="panel"></div>
+<code class="accordion" id ="147" onclick="clickedLine(this)">     * @param b a positive number</code><div id="147panel" class="panel"></div>
+<code class="accordion" id ="148" onclick="clickedLine(this)">     * @return the gcd of a and b</code><div id="148panel" class="panel"></div>
+<code class="accordion" id ="149" onclick="clickedLine(this)">     */</code><div id="149panel" class="panel"></div>
+<code class="accordion" id ="150" onclick="clickedLine(this)">    private static long gcd(long a, long b) {</code><div id="150panel" class="panel"></div>
+<code class="accordion" id ="151" onclick="clickedLine(this)">        while (a &gt; 0 &amp;&amp;  b &gt; 0) {</code><div id="151panel" class="panel"></div>
+<code class="accordion" id ="152" onclick="clickedLine(this)">            if (a &gt; b) {</code><div id="152panel" class="panel"></div>
+<code class="accordion" id ="153" onclick="clickedLine(this)">                a = a % b;</code><div id="153panel" class="panel"></div>
+<code class="accordion" id ="154" onclick="clickedLine(this)">            } else {</code><div id="154panel" class="panel"></div>
+<code class="accordion" id ="155" onclick="clickedLine(this)">                b = b % a;</code><div id="155panel" class="panel"></div>
+<code class="accordion" id ="156" onclick="clickedLine(this)">            }</code><div id="156panel" class="panel"></div>
+<code class="accordion" id ="157" onclick="clickedLine(this)">        }</code><div id="157panel" class="panel"></div>
+<code class="accordion" id ="158" onclick="clickedLine(this)"></code><div id="158panel" class="panel"></div>
+<code class="accordion" id ="159" onclick="clickedLine(this)">        return Math.max(a, b);</code><div id="159panel" class="panel"></div>
+<code class="accordion" id ="160" onclick="clickedLine(this)">    }</code><div id="160panel" class="panel"></div>
+<code class="accordion" id ="161" onclick="clickedLine(this)"></code><div id="161panel" class="panel"></div>
+<code class="accordion" id ="162" onclick="clickedLine(this)">    /**</code><div id="162panel" class="panel"></div>
+<code class="accordion" id ="163" onclick="clickedLine(this)">     * Returns the numerator part of the reduced rational number.</code><div id="163panel" class="panel"></div>
+<code class="accordion" id ="164" onclick="clickedLine(this)">     * @return the numerator</code><div id="164panel" class="panel"></div>
+<code class="accordion" id ="165" onclick="clickedLine(this)">     */</code><div id="165panel" class="panel"></div>
+<code class="accordion" id ="166" onclick="clickedLine(this)">    public int getNumerator() {</code><div id="166panel" class="panel"></div>
+<code class="accordion" id ="167" onclick="clickedLine(this)">        return this.numerator;</code><div id="167panel" class="panel"></div>
+<code class="accordion" id ="168" onclick="clickedLine(this)">    }</code><div id="168panel" class="panel"></div>
+<code class="accordion" id ="169" onclick="clickedLine(this)"></code><div id="169panel" class="panel"></div>
+<code class="accordion" id ="170" onclick="clickedLine(this)">    /**</code><div id="170panel" class="panel"></div>
+<code class="accordion" id ="171" onclick="clickedLine(this)">     * Returns the denominator part of the reduced rational number.</code><div id="171panel" class="panel"></div>
+<code class="accordion" id ="172" onclick="clickedLine(this)">     * @return the denominator</code><div id="172panel" class="panel"></div>
+<code class="accordion" id ="173" onclick="clickedLine(this)">     */</code><div id="173panel" class="panel"></div>
+<code class="accordion" id ="174" onclick="clickedLine(this)">    public int getDenominator() {</code><div id="174panel" class="panel"></div>
+<code class="accordion" id ="175" onclick="clickedLine(this)">        return this.denominator;</code><div id="175panel" class="panel"></div>
+<code class="accordion" id ="176" onclick="clickedLine(this)">    }</code><div id="176panel" class="panel"></div>
+<code class="accordion" id ="177" onclick="clickedLine(this)"></code><div id="177panel" class="panel"></div>
+<code class="accordion" id ="178" onclick="clickedLine(this)">    /**</code><div id="178panel" class="panel"></div>
+<code class="accordion" id ="179" onclick="clickedLine(this)">     * Checks for a positive value.</code><div id="179panel" class="panel"></div>
+<code class="accordion" id ="180" onclick="clickedLine(this)">     * @return true if the rational is greater than or equal 0, false else</code><div id="180panel" class="panel"></div>
+<code class="accordion" id ="181" onclick="clickedLine(this)">     */</code><div id="181panel" class="panel"></div>
+<code class="accordion" id ="182" onclick="clickedLine(this)">    public boolean isPositive() {</code><div id="182panel" class="panel"></div>
+<code class="accordion" id ="183" onclick="clickedLine(this)">        return this.numerator &gt;= 0;</code><div id="183panel" class="panel"></div>
+<code class="accordion" id ="184" onclick="clickedLine(this)">    }</code><div id="184panel" class="panel"></div>
+<code class="accordion" id ="185" onclick="clickedLine(this)"></code><div id="185panel" class="panel"></div>
+<code class="accordion" id ="186" onclick="clickedLine(this)">    /**</code><div id="186panel" class="panel"></div>
+<code class="accordion" id ="187" onclick="clickedLine(this)">     * Checks for a negative value.</code><div id="187panel" class="panel"></div>
+<code class="accordion" id ="188" onclick="clickedLine(this)">     * @return true if the rational is lower than 0, false else</code><div id="188panel" class="panel"></div>
+<code class="accordion" id ="189" onclick="clickedLine(this)">     */</code><div id="189panel" class="panel"></div>
+<code class="accordion" id ="190" onclick="clickedLine(this)">    public boolean isNegative() {</code><div id="190panel" class="panel"></div>
+<code class="accordion" id ="191" onclick="clickedLine(this)">        return this.numerator &lt; 0;</code><div id="191panel" class="panel"></div>
+<code class="accordion" id ="192" onclick="clickedLine(this)">    }</code><div id="192panel" class="panel"></div>
+<code class="accordion" id ="193" onclick="clickedLine(this)"></code><div id="193panel" class="panel"></div>
+<code class="accordion" id ="194" onclick="clickedLine(this)">    /**</code><div id="194panel" class="panel"></div>
+<code class="accordion" id ="195" onclick="clickedLine(this)">     * Returns a Rational with inverted sign.</code><div id="195panel" class="panel"></div>
+<code class="accordion" id ="196" onclick="clickedLine(this)">     * @return -this</code><div id="196panel" class="panel"></div>
+<code class="accordion" id ="197" onclick="clickedLine(this)">     */</code><div id="197panel" class="panel"></div>
+<code class="accordion" id ="198" onclick="clickedLine(this)">    public Rational negate() {</code><div id="198panel" class="panel"></div>
+<code class="accordion" id ="199" onclick="clickedLine(this)">        return new Rational(-this.numerator, this.denominator);</code><div id="199panel" class="panel"></div>
+<code class="accordion" id ="200" onclick="clickedLine(this)">    }</code><div id="200panel" class="panel"></div>
+<code class="accordion" id ="201" onclick="clickedLine(this)"></code><div id="201panel" class="panel"></div>
+<code class="accordion" id ="202" onclick="clickedLine(this)">    /**</code><div id="202panel" class="panel"></div>
+<code class="accordion" id ="203" onclick="clickedLine(this)">     * Returns a Rational with numerator and denominator swapped.</code><div id="203panel" class="panel"></div>
+<code class="accordion" id ="204" onclick="clickedLine(this)">     * @return 1/this</code><div id="204panel" class="panel"></div>
+<code class="accordion" id ="205" onclick="clickedLine(this)">     */</code><div id="205panel" class="panel"></div>
+<code class="accordion" id ="206" onclick="clickedLine(this)">    public Rational invert() {</code><div id="206panel" class="panel"></div>
+<code class="accordion" id ="207" onclick="clickedLine(this)">        return new Rational(this.denominator, this.numerator);</code><div id="207panel" class="panel"></div>
+<code class="accordion" id ="208" onclick="clickedLine(this)">    }</code><div id="208panel" class="panel"></div>
+<code class="accordion" id ="209" onclick="clickedLine(this)"></code><div id="209panel" class="panel"></div>
+<code class="accordion" id ="210" onclick="clickedLine(this)">    /**</code><div id="210panel" class="panel"></div>
+<code class="accordion" id ="211" onclick="clickedLine(this)">     * Returns a Rational whose value is (this + r).</code><div id="211panel" class="panel"></div>
+<code class="accordion" id ="212" onclick="clickedLine(this)">     * @param r value to be added to this Rational</code><div id="212panel" class="panel"></div>
+<code class="accordion" id ="213" onclick="clickedLine(this)">     * @return this + r</code><div id="213panel" class="panel"></div>
+<code class="accordion" id ="214" onclick="clickedLine(this)">     */</code><div id="214panel" class="panel"></div>
+<code class="accordion" id ="215" onclick="clickedLine(this)">    public Rational add(Rational r) {</code><div id="215panel" class="panel"></div>
+<code class="accordion" id ="216" onclick="clickedLine(this)">        if (this.denominator == r.denominator) {</code><div id="216panel" class="panel"></div>
+<code class="accordion" id ="217" onclick="clickedLine(this)">            return new Rational((long) this.numerator + r.numerator,</code><div id="217panel" class="panel"></div>
+<code class="accordion" id ="218" onclick="clickedLine(this)">                                this.denominator);</code><div id="218panel" class="panel"></div>
+<code class="accordion" id ="219" onclick="clickedLine(this)">        }</code><div id="219panel" class="panel"></div>
+<code class="accordion" id ="220" onclick="clickedLine(this)"></code><div id="220panel" class="panel"></div>
+<code class="accordion" id ="221" onclick="clickedLine(this)">        long n = (long) this.numerator * r.denominator</code><div id="221panel" class="panel"></div>
+<code class="accordion" id ="222" onclick="clickedLine(this)">                 + (long) r.numerator * this.denominator;</code><div id="222panel" class="panel"></div>
+<code class="accordion" id ="223" onclick="clickedLine(this)">        long d = (long) this.denominator * r.denominator;</code><div id="223panel" class="panel"></div>
+<code class="accordion" id ="224" onclick="clickedLine(this)">        return new Rational(n, d);</code><div id="224panel" class="panel"></div>
+<code class="accordion" id ="225" onclick="clickedLine(this)">    }</code><div id="225panel" class="panel"></div>
+<code class="accordion" id ="226" onclick="clickedLine(this)"></code><div id="226panel" class="panel"></div>
+<code class="accordion" id ="227" onclick="clickedLine(this)">    /**</code><div id="227panel" class="panel"></div>
+<code class="accordion" id ="228" onclick="clickedLine(this)">     * Returns a Rational whose value is (this - r).</code><div id="228panel" class="panel"></div>
+<code class="accordion" id ="229" onclick="clickedLine(this)">     * @param r value to be subtracted from this Rational</code><div id="229panel" class="panel"></div>
+<code class="accordion" id ="230" onclick="clickedLine(this)">     * @return this - r</code><div id="230panel" class="panel"></div>
+<code class="accordion" id ="231" onclick="clickedLine(this)">     */</code><div id="231panel" class="panel"></div>
+<code class="accordion" id ="232" onclick="clickedLine(this)">    public Rational subtract(Rational r) {</code><div id="232panel" class="panel"></div>
+<code class="accordion" id ="233" onclick="clickedLine(this)">        if (this.denominator == r.denominator) {</code><div id="233panel" class="panel"></div>
+<code class="accordion" id ="234" onclick="clickedLine(this)">            return new Rational((long) this.numerator - r.numerator,</code><div id="234panel" class="panel"></div>
+<code class="accordion" id ="235" onclick="clickedLine(this)">                                this.denominator);</code><div id="235panel" class="panel"></div>
+<code class="accordion" id ="236" onclick="clickedLine(this)">        }</code><div id="236panel" class="panel"></div>
+<code class="accordion" id ="237" onclick="clickedLine(this)"></code><div id="237panel" class="panel"></div>
+<code class="accordion" id ="238" onclick="clickedLine(this)">        long n = (long) this.numerator * r.denominator</code><div id="238panel" class="panel"></div>
+<code class="accordion" id ="239" onclick="clickedLine(this)">                 - (long) r.numerator * this.denominator;</code><div id="239panel" class="panel"></div>
+<code class="accordion" id ="240" onclick="clickedLine(this)">        long d = (long) this.denominator * r.denominator;</code><div id="240panel" class="panel"></div>
+<code class="accordion" id ="241" onclick="clickedLine(this)">        return new Rational(n, d);</code><div id="241panel" class="panel"></div>
+<code class="accordion" id ="242" onclick="clickedLine(this)">    }</code><div id="242panel" class="panel"></div>
+<code class="accordion" id ="243" onclick="clickedLine(this)"></code><div id="243panel" class="panel"></div>
+<code class="accordion" id ="244" onclick="clickedLine(this)">    /**</code><div id="244panel" class="panel"></div>
+<code class="accordion" id ="245" onclick="clickedLine(this)">     * Returns a Rational whose value is (this * r).</code><div id="245panel" class="panel"></div>
+<code class="accordion" id ="246" onclick="clickedLine(this)">     * @param r value to be multiplied by this Rational</code><div id="246panel" class="panel"></div>
+<code class="accordion" id ="247" onclick="clickedLine(this)">     * @return this * r</code><div id="247panel" class="panel"></div>
+<code class="accordion" id ="248" onclick="clickedLine(this)">     */</code><div id="248panel" class="panel"></div>
+<code class="accordion" id ="249" onclick="clickedLine(this)">    public Rational multiply(Rational r) {</code><div id="249panel" class="panel"></div>
+<code class="accordion" id ="250" onclick="clickedLine(this)">        long n = (long) this.numerator * r.numerator;</code><div id="250panel" class="panel"></div>
+<code class="accordion" id ="251" onclick="clickedLine(this)">        long d = (long) this.denominator * r.denominator;</code><div id="251panel" class="panel"></div>
+<code class="accordion" id ="252" onclick="clickedLine(this)">        return new Rational(n, d);</code><div id="252panel" class="panel"></div>
+<code class="accordion" id ="253" onclick="clickedLine(this)">    }</code><div id="253panel" class="panel"></div>
+<code class="accordion" id ="254" onclick="clickedLine(this)"></code><div id="254panel" class="panel"></div>
+<code class="accordion" id ="255" onclick="clickedLine(this)">    /**</code><div id="255panel" class="panel"></div>
+<code class="accordion" id ="256" onclick="clickedLine(this)">     * Returns a Rational whose value is (this / r).</code><div id="256panel" class="panel"></div>
+<code class="accordion" id ="257" onclick="clickedLine(this)">     * @param r value by which this Rational is to be divided</code><div id="257panel" class="panel"></div>
+<code class="accordion" id ="258" onclick="clickedLine(this)">     * @return this / r</code><div id="258panel" class="panel"></div>
+<code class="accordion" id ="259" onclick="clickedLine(this)">     */</code><div id="259panel" class="panel"></div>
+<code class="accordion" id ="260" onclick="clickedLine(this)">    public Rational divide(Rational r) {</code><div id="260panel" class="panel"></div>
+<code class="accordion" id ="261" onclick="clickedLine(this)">        if (r.numerator == 0) {</code><div id="261panel" class="panel"></div>
+<code class="accordion" id ="262" onclick="clickedLine(this)">            throw new IllegalArgumentException(&quot;invalid divisor: &quot; + r);</code><div id="262panel" class="panel"></div>
+<code class="accordion" id ="263" onclick="clickedLine(this)">        }</code><div id="263panel" class="panel"></div>
+<code class="accordion" id ="264" onclick="clickedLine(this)"></code><div id="264panel" class="panel"></div>
+<code class="accordion" id ="265" onclick="clickedLine(this)">        long n = (long) this.numerator * r.denominator;</code><div id="265panel" class="panel"></div>
+<code class="accordion" id ="266" onclick="clickedLine(this)">        long d = (long) this.denominator * r.numerator;</code><div id="266panel" class="panel"></div>
+<code class="accordion" id ="267" onclick="clickedLine(this)">        return new Rational(n, d);</code><div id="267panel" class="panel"></div>
+<code class="accordion" id ="268" onclick="clickedLine(this)">    }</code><div id="268panel" class="panel"></div>
+<code class="accordion" id ="269" onclick="clickedLine(this)"></code><div id="269panel" class="panel"></div>
+<code class="accordion" id ="270" onclick="clickedLine(this)">    /**</code><div id="270panel" class="panel"></div>
+<code class="accordion" id ="271" onclick="clickedLine(this)">     * Returns a string representation of this Rational.</code><div id="271panel" class="panel"></div>
+<code class="accordion" id ="272" onclick="clickedLine(this)">     * The string decimal representation including sign of the numerator</code><div id="272panel" class="panel"></div>
+<code class="accordion" id ="273" onclick="clickedLine(this)">     * is followed by '/' and the string representation of the denominator.</code><div id="273panel" class="panel"></div>
+<code class="accordion" id ="274" onclick="clickedLine(this)">     * @return string representation of this Rational.</code><div id="274panel" class="panel"></div>
+<code class="accordion" id ="275" onclick="clickedLine(this)">     */</code><div id="275panel" class="panel"></div>
+<code class="accordion" id ="276" onclick="clickedLine(this)">    @Override</code><div id="276panel" class="panel"></div>
+<code class="accordion" id ="277" onclick="clickedLine(this)">    public String toString() {</code><div id="277panel" class="panel"></div>
+<code class="accordion" id ="278" onclick="clickedLine(this)">        return new StringBuilder()</code><div id="278panel" class="panel"></div>
+<code class="accordion" id ="279" onclick="clickedLine(this)">                   .append(this.numerator)</code><div id="279panel" class="panel"></div>
+<code class="accordion" id ="280" onclick="clickedLine(this)">                   .append('/')</code><div id="280panel" class="panel"></div>
+<code class="accordion" id ="281" onclick="clickedLine(this)">                   .append(this.denominator)</code><div id="281panel" class="panel"></div>
+<code class="accordion" id ="282" onclick="clickedLine(this)">                   .toString();</code><div id="282panel" class="panel"></div>
+<code class="accordion" id ="283" onclick="clickedLine(this)">    }</code><div id="283panel" class="panel"></div>
+<code class="accordion" id ="284" onclick="clickedLine(this)"></code><div id="284panel" class="panel"></div>
+<code class="accordion" id ="285" onclick="clickedLine(this)">    @Override</code><div id="285panel" class="panel"></div>
+<code class="accordion" id ="286" onclick="clickedLine(this)">    public boolean equals(Object o) {</code><div id="286panel" class="panel"></div>
+<code class="accordion" id ="287" onclick="clickedLine(this)">        if (o instanceof Rational) {</code><div id="287panel" class="panel"></div>
+<code class="accordion" id ="288" onclick="clickedLine(this)">            Rational r = (Rational) o;</code><div id="288panel" class="panel"></div>
+<code class="accordion" id ="289" onclick="clickedLine(this)">            return this.numerator == r.numerator</code><div id="289panel" class="panel"></div>
+<code class="accordion" id ="290" onclick="clickedLine(this)">                   &amp;&amp; this.denominator == r.denominator;</code><div id="290panel" class="panel"></div>
+<code class="accordion" id ="291" onclick="clickedLine(this)">        }</code><div id="291panel" class="panel"></div>
+<code class="accordion" id ="292" onclick="clickedLine(this)"></code><div id="292panel" class="panel"></div>
+<code class="accordion" id ="293" onclick="clickedLine(this)">        return false;</code><div id="293panel" class="panel"></div>
+<code class="accordion" id ="294" onclick="clickedLine(this)">    }</code><div id="294panel" class="panel"></div>
+<code class="accordion" id ="295" onclick="clickedLine(this)"></code><div id="295panel" class="panel"></div>
+<code class="accordion" id ="296" onclick="clickedLine(this)">    @Override</code><div id="296panel" class="panel"></div>
+<code class="accordion" id ="297" onclick="clickedLine(this)">    public int hashCode() {</code><div id="297panel" class="panel"></div>
+<code class="accordion" id ="298" onclick="clickedLine(this)">        return this.numerator * 31 + this.denominator;</code><div id="298panel" class="panel"></div>
+<code class="accordion" id ="299" onclick="clickedLine(this)">    }</code><div id="299panel" class="panel"></div>
+<code class="accordion" id ="300" onclick="clickedLine(this)"></code><div id="300panel" class="panel"></div>
+<code class="accordion" id ="301" onclick="clickedLine(this)">    @Override</code><div id="301panel" class="panel"></div>
+<code class="accordion" id ="302" onclick="clickedLine(this)">    public int intValue() {</code><div id="302panel" class="panel"></div>
+<code class="accordion" id ="303" onclick="clickedLine(this)">        return (int) ((double) this.numerator / this.denominator);</code><div id="303panel" class="panel"></div>
+<code class="accordion" id ="304" onclick="clickedLine(this)">    }</code><div id="304panel" class="panel"></div>
+<code class="accordion" id ="305" onclick="clickedLine(this)"></code><div id="305panel" class="panel"></div>
+<code class="accordion" id ="306" onclick="clickedLine(this)">    @Override</code><div id="306panel" class="panel"></div>
+<code class="accordion" id ="307" onclick="clickedLine(this)">    public long longValue() {</code><div id="307panel" class="panel"></div>
+<code class="accordion" id ="308" onclick="clickedLine(this)">        return (long) ((double) this.numerator / this.denominator);</code><div id="308panel" class="panel"></div>
+<code class="accordion" id ="309" onclick="clickedLine(this)">    }</code><div id="309panel" class="panel"></div>
+<code class="accordion" id ="310" onclick="clickedLine(this)"></code><div id="310panel" class="panel"></div>
+<code class="accordion" id ="311" onclick="clickedLine(this)">    @Override</code><div id="311panel" class="panel"></div>
+<code class="accordion" id ="312" onclick="clickedLine(this)">    public double doubleValue() {</code><div id="312panel" class="panel"></div>
+<code class="accordion" id ="313" onclick="clickedLine(this)">        return (double) this.numerator / this.denominator;</code><div id="313panel" class="panel"></div>
+<code class="accordion" id ="314" onclick="clickedLine(this)">    }</code><div id="314panel" class="panel"></div>
+<code class="accordion" id ="315" onclick="clickedLine(this)"></code><div id="315panel" class="panel"></div>
+<code class="accordion" id ="316" onclick="clickedLine(this)">    @Override</code><div id="316panel" class="panel"></div>
+<code class="accordion" id ="317" onclick="clickedLine(this)">    public float floatValue() {</code><div id="317panel" class="panel"></div>
+<code class="accordion" id ="318" onclick="clickedLine(this)">        return (float) this.doubleValue();</code><div id="318panel" class="panel"></div>
+<code class="accordion" id ="319" onclick="clickedLine(this)">    }</code><div id="319panel" class="panel"></div>
+<code class="accordion" id ="320" onclick="clickedLine(this)"></code><div id="320panel" class="panel"></div>
+<code class="accordion" id ="321" onclick="clickedLine(this)">    @Override</code><div id="321panel" class="panel"></div>
+<code class="accordion" id ="322" onclick="clickedLine(this)">    public int compareTo(Rational r) {</code><div id="322panel" class="panel"></div>
+<code class="accordion" id ="323" onclick="clickedLine(this)">        if (this.denominator == r.denominator) {</code><div id="323panel" class="panel"></div>
+<code class="accordion" id ="324" onclick="clickedLine(this)">            if (this.numerator &lt; r.numerator) {</code><div id="324panel" class="panel"></div>
+<code class="accordion" id ="325" onclick="clickedLine(this)">                return -1;</code><div id="325panel" class="panel"></div>
+<code class="accordion" id ="326" onclick="clickedLine(this)">            }</code><div id="326panel" class="panel"></div>
+<code class="accordion" id ="327" onclick="clickedLine(this)"></code><div id="327panel" class="panel"></div>
+<code class="accordion" id ="328" onclick="clickedLine(this)">            if (this.numerator == r.numerator) {</code><div id="328panel" class="panel"></div>
+<code class="accordion" id ="329" onclick="clickedLine(this)">                return 0;</code><div id="329panel" class="panel"></div>
+<code class="accordion" id ="330" onclick="clickedLine(this)">            }</code><div id="330panel" class="panel"></div>
+<code class="accordion" id ="331" onclick="clickedLine(this)"></code><div id="331panel" class="panel"></div>
+<code class="accordion" id ="332" onclick="clickedLine(this)">            return 1;</code><div id="332panel" class="panel"></div>
+<code class="accordion" id ="333" onclick="clickedLine(this)">        }</code><div id="333panel" class="panel"></div>
+<code class="accordion" id ="334" onclick="clickedLine(this)"></code><div id="334panel" class="panel"></div>
+<code class="accordion" id ="335" onclick="clickedLine(this)">        if ((long) this.numerator * r.denominator</code><div id="335panel" class="panel"></div>
+<code class="accordion" id ="336" onclick="clickedLine(this)">            &lt; (long) r.numerator * this.denominator) {</code><div id="336panel" class="panel"></div>
+<code class="accordion" id ="337" onclick="clickedLine(this)">            return -1;</code><div id="337panel" class="panel"></div>
+<code class="accordion" id ="338" onclick="clickedLine(this)">        }</code><div id="338panel" class="panel"></div>
+<code class="accordion" id ="339" onclick="clickedLine(this)"></code><div id="339panel" class="panel"></div>
+<code class="accordion" id ="340" onclick="clickedLine(this)">        return 1;</code><div id="340panel" class="panel"></div>
+<code class="accordion" id ="341" onclick="clickedLine(this)">    }</code><div id="341panel" class="panel"></div>
+<code class="accordion" id ="342" onclick="clickedLine(this)"></code><div id="342panel" class="panel"></div>
+<code class="accordion" id ="343" onclick="clickedLine(this)">    @Override</code><div id="343panel" class="panel"></div>
+<code class="accordion" id ="344" onclick="clickedLine(this)">    public void formatTo(Formatter f, int flags, int width, int precision) {</code><div id="344panel" class="panel"></div>
+<code class="accordion" id ="345" onclick="clickedLine(this)"></code><div id="345panel" class="panel"></div>
+<code class="accordion" id ="346" onclick="clickedLine(this)">        if (precision != -1) {</code><div id="346panel" class="panel"></div>
+<code class="accordion" id ="347" onclick="clickedLine(this)">            throw new IllegalFormatPrecisionException(precision);</code><div id="347panel" class="panel"></div>
+<code class="accordion" id ="348" onclick="clickedLine(this)">        }</code><div id="348panel" class="panel"></div>
+<code class="accordion" id ="349" onclick="clickedLine(this)"></code><div id="349panel" class="panel"></div>
+<code class="accordion" id ="350" onclick="clickedLine(this)">        if ((flags &amp; ALTERNATE) == ALTERNATE) {</code><div id="350panel" class="panel"></div>
+<code class="accordion" id ="351" onclick="clickedLine(this)">            throw new FormatFlagsConversionMismatchException(&quot;#&quot;, 's');</code><div id="351panel" class="panel"></div>
+<code class="accordion" id ="352" onclick="clickedLine(this)">        }</code><div id="352panel" class="panel"></div>
+<code class="accordion" id ="353" onclick="clickedLine(this)"></code><div id="353panel" class="panel"></div>
+<code class="accordion" id ="354" onclick="clickedLine(this)">        String s = this.toString();</code><div id="354panel" class="panel"></div>
+<code class="accordion" id ="355" onclick="clickedLine(this)"></code><div id="355panel" class="panel"></div>
+<code class="accordion" id ="356" onclick="clickedLine(this)">        if (width &lt;= s.length()) {</code><div id="356panel" class="panel"></div>
+<code class="accordion" id ="357" onclick="clickedLine(this)">            f.format(s);</code><div id="357panel" class="panel"></div>
+<code class="accordion" id ="358" onclick="clickedLine(this)">            return;</code><div id="358panel" class="panel"></div>
+<code class="accordion" id ="359" onclick="clickedLine(this)">        }</code><div id="359panel" class="panel"></div>
+<code class="accordion" id ="360" onclick="clickedLine(this)"></code><div id="360panel" class="panel"></div>
+<code class="accordion" id ="361" onclick="clickedLine(this)">        if ((flags &amp; LEFT_JUSTIFY) == LEFT_JUSTIFY) {</code><div id="361panel" class="panel"></div>
+<code class="accordion" id ="362" onclick="clickedLine(this)">            f.format(&quot;%-&quot; + width + &quot;s&quot;, s);</code><div id="362panel" class="panel"></div>
+<code class="accordion" id ="363" onclick="clickedLine(this)">            return;</code><div id="363panel" class="panel"></div>
+<code class="accordion" id ="364" onclick="clickedLine(this)">        }</code><div id="364panel" class="panel"></div>
+<code class="accordion" id ="365" onclick="clickedLine(this)"></code><div id="365panel" class="panel"></div>
+<code class="accordion" id ="366" onclick="clickedLine(this)">        f.format(&quot;%&quot; + width + &quot;s&quot;, s);</code><div id="366panel" class="panel"></div>
+<code class="accordion" id ="367" onclick="clickedLine(this)">    }</code><div id="367panel" class="panel"></div>
+<code class="accordion" id ="368" onclick="clickedLine(this)">}</code><div id="368panel" class="panel"></div>
+<code class="accordion" id ="369" onclick="clickedLine(this)"></code><div id="369panel" class="panel"></div>
+<code class="accordion" id ="370" onclick="clickedLine(this)">/**</code><div id="370panel" class="panel"></div>
+<code class="accordion" id ="371" onclick="clickedLine(this)"> * Test driver.</code><div id="371panel" class="panel"></div>
+<code class="accordion" id ="372" onclick="clickedLine(this)"> */</code><div id="372panel" class="panel"></div>
+<code class="accordion" id ="373" onclick="clickedLine(this)">final class RationalTest {</code><div id="373panel" class="panel"></div>
+<code class="accordion" id ="374" onclick="clickedLine(this)">    private RationalTest() { }</code><div id="374panel" class="panel"></div>
+<code class="accordion" id ="375" onclick="clickedLine(this)"></code><div id="375panel" class="panel"></div>
+<code class="accordion" id ="376" onclick="clickedLine(this)">    /**</code><div id="376panel" class="panel"></div>
+<code class="accordion" id ="377" onclick="clickedLine(this)">     * Evaluates an arithmetic postfix expression with rational numbers.</code><div id="377panel" class="panel"></div>
+<code class="accordion" id ="378" onclick="clickedLine(this)">     * Example: java RationalTest 1/2 3/4 add 5/6 multiply</code><div id="378panel" class="panel"></div>
+<code class="accordion" id ="379" onclick="clickedLine(this)">     * @param args the arithmetic postfix expression with rational numbers</code><div id="379panel" class="panel"></div>
+<code class="accordion" id ="380" onclick="clickedLine(this)">     */</code><div id="380panel" class="panel"></div>
+<code class="accordion" id ="381" onclick="clickedLine(this)">    public static void main(String[] args) {</code><div id="381panel" class="panel"></div>
+<code class="accordion" id ="382" onclick="clickedLine(this)">        Rational[] stack = new Rational[args.length];</code><div id="382panel" class="panel"></div>
+<code class="accordion" id ="383" onclick="clickedLine(this)">        int top = 0;</code><div id="383panel" class="panel"></div>
+<code class="accordion" id ="384" onclick="clickedLine(this)"></code><div id="384panel" class="panel"></div>
+<code class="accordion" id ="385" onclick="clickedLine(this)">        Locale.setDefault(Locale.ENGLISH);</code><div id="385panel" class="panel"></div>
+<code class="accordion" id ="386" onclick="clickedLine(this)">        Scanner input = new Scanner(System.in);</code><div id="386panel" class="panel"></div>
+<code class="accordion" id ="387" onclick="clickedLine(this)"></code><div id="387panel" class="panel"></div>
+<code class="accordion" id ="388" onclick="clickedLine(this)">        for (String arg : args) {</code><div id="388panel" class="panel"></div>
+<code class="accordion" id ="389" onclick="clickedLine(this)">            try {</code><div id="389panel" class="panel"></div>
+<code class="accordion" id ="390" onclick="clickedLine(this)">                switch (arg) {</code><div id="390panel" class="panel"></div>
+<code class="accordion" id ="391" onclick="clickedLine(this)">                case &quot;stackdump&quot;:</code><div id="391panel" class="panel"></div>
+<code class="accordion" id ="392" onclick="clickedLine(this)">                    for (int j = 0; j &lt; top; ++j) {</code><div id="392panel" class="panel"></div>
+<code class="accordion" id ="393" onclick="clickedLine(this)">                        System.out.printf(&quot;%d: %s (%.15e)%n&quot;,</code><div id="393panel" class="panel"></div>
+<code class="accordion" id ="394" onclick="clickedLine(this)">                                          j, stack[j], stack[j].doubleValue());</code><div id="394panel" class="panel"></div>
+<code class="accordion" id ="395" onclick="clickedLine(this)">                    }</code><div id="395panel" class="panel"></div>
+<code class="accordion" id ="396" onclick="clickedLine(this)">                    continue;</code><div id="396panel" class="panel"></div>
+<code class="accordion" id ="397" onclick="clickedLine(this)">                case &quot;negate&quot;:</code><div id="397panel" class="panel"></div>
+<code class="accordion" id ="398" onclick="clickedLine(this)">                    stack[top - 1] = stack[top - 1].negate();</code><div id="398panel" class="panel"></div>
+<code class="accordion" id ="399" onclick="clickedLine(this)">                    break;</code><div id="399panel" class="panel"></div>
+<code class="accordion" id ="400" onclick="clickedLine(this)">                case &quot;invert&quot;:</code><div id="400panel" class="panel"></div>
+<code class="accordion" id ="401" onclick="clickedLine(this)">                    stack[top - 1] = stack[top - 1].invert();</code><div id="401panel" class="panel"></div>
+<code class="accordion" id ="402" onclick="clickedLine(this)">                    break;</code><div id="402panel" class="panel"></div>
+<code class="accordion" id ="403" onclick="clickedLine(this)">                case &quot;add&quot;:</code><div id="403panel" class="panel"></div>
+<code class="accordion" id ="404" onclick="clickedLine(this)">                    stack[top - 2] = stack[top - 2].add(stack[top - 1]);</code><div id="404panel" class="panel"></div>
+<code class="accordion" id ="405" onclick="clickedLine(this)">                    --top;</code><div id="405panel" class="panel"></div>
+<code class="accordion" id ="406" onclick="clickedLine(this)">                    break;</code><div id="406panel" class="panel"></div>
+<code class="accordion" id ="407" onclick="clickedLine(this)">                case &quot;subtract&quot;:</code><div id="407panel" class="panel"></div>
+<code class="accordion" id ="408" onclick="clickedLine(this)">                    stack[top - 2] = stack[top - 2].subtract(stack[top - 1]);</code><div id="408panel" class="panel"></div>
+<code class="accordion" id ="409" onclick="clickedLine(this)">                    --top;</code><div id="409panel" class="panel"></div>
+<code class="accordion" id ="410" onclick="clickedLine(this)">                    break;</code><div id="410panel" class="panel"></div>
+<code class="accordion" id ="411" onclick="clickedLine(this)">                case &quot;multiply&quot;:</code><div id="411panel" class="panel"></div>
+<code class="accordion" id ="412" onclick="clickedLine(this)">                    stack[top - 2] = stack[top - 2].multiply(stack[top - 1]);</code><div id="412panel" class="panel"></div>
+<code class="accordion" id ="413" onclick="clickedLine(this)">                    --top;</code><div id="413panel" class="panel"></div>
+<code class="accordion" id ="414" onclick="clickedLine(this)">                    break;</code><div id="414panel" class="panel"></div>
+<code class="accordion" id ="415" onclick="clickedLine(this)">                case &quot;divide&quot;:</code><div id="415panel" class="panel"></div>
+<code class="accordion" id ="416" onclick="clickedLine(this)">                    stack[top - 2] = stack[top - 2].divide(stack[top - 1]);</code><div id="416panel" class="panel"></div>
+<code class="accordion" id ="417" onclick="clickedLine(this)">                    --top;</code><div id="417panel" class="panel"></div>
+<code class="accordion" id ="418" onclick="clickedLine(this)">                    break;</code><div id="418panel" class="panel"></div>
+<code class="accordion" id ="419" onclick="clickedLine(this)"></code><div id="419panel" class="panel"></div>
+<code class="accordion" id ="420" onclick="clickedLine(this)">                case &quot;getNumerator&quot;:</code><div id="420panel" class="panel"></div>
+<code class="accordion" id ="421" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %d%n&quot;,</code><div id="421panel" class="panel"></div>
+<code class="accordion" id ="422" onclick="clickedLine(this)">                                      arg, stack[top - 1].getNumerator());</code><div id="422panel" class="panel"></div>
+<code class="accordion" id ="423" onclick="clickedLine(this)">                    continue;</code><div id="423panel" class="panel"></div>
+<code class="accordion" id ="424" onclick="clickedLine(this)">                case &quot;getDenominator&quot;:</code><div id="424panel" class="panel"></div>
+<code class="accordion" id ="425" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %d%n&quot;,</code><div id="425panel" class="panel"></div>
+<code class="accordion" id ="426" onclick="clickedLine(this)">                                      arg, stack[top - 1].getDenominator());</code><div id="426panel" class="panel"></div>
+<code class="accordion" id ="427" onclick="clickedLine(this)">                    continue;</code><div id="427panel" class="panel"></div>
+<code class="accordion" id ="428" onclick="clickedLine(this)">                case &quot;isPositive&quot;:</code><div id="428panel" class="panel"></div>
+<code class="accordion" id ="429" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %b%n&quot;,</code><div id="429panel" class="panel"></div>
+<code class="accordion" id ="430" onclick="clickedLine(this)">                                      arg, stack[top - 1].isPositive());</code><div id="430panel" class="panel"></div>
+<code class="accordion" id ="431" onclick="clickedLine(this)">                    continue;</code><div id="431panel" class="panel"></div>
+<code class="accordion" id ="432" onclick="clickedLine(this)">                case &quot;isNegative&quot;:</code><div id="432panel" class="panel"></div>
+<code class="accordion" id ="433" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %b%n&quot;,</code><div id="433panel" class="panel"></div>
+<code class="accordion" id ="434" onclick="clickedLine(this)">                                      arg, stack[top - 1].isNegative());</code><div id="434panel" class="panel"></div>
+<code class="accordion" id ="435" onclick="clickedLine(this)">                    continue;</code><div id="435panel" class="panel"></div>
+<code class="accordion" id ="436" onclick="clickedLine(this)"></code><div id="436panel" class="panel"></div>
+<code class="accordion" id ="437" onclick="clickedLine(this)">                case &quot;toString&quot;:</code><div id="437panel" class="panel"></div>
+<code class="accordion" id ="438" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %s%n&quot;,</code><div id="438panel" class="panel"></div>
+<code class="accordion" id ="439" onclick="clickedLine(this)">                                      arg, stack[top - 1].toString());</code><div id="439panel" class="panel"></div>
+<code class="accordion" id ="440" onclick="clickedLine(this)">                    continue;</code><div id="440panel" class="panel"></div>
+<code class="accordion" id ="441" onclick="clickedLine(this)">                case &quot;hashCode&quot;:</code><div id="441panel" class="panel"></div>
+<code class="accordion" id ="442" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %d%n&quot;,</code><div id="442panel" class="panel"></div>
+<code class="accordion" id ="443" onclick="clickedLine(this)">                                      arg, stack[top - 1].hashCode());</code><div id="443panel" class="panel"></div>
+<code class="accordion" id ="444" onclick="clickedLine(this)">                    continue;</code><div id="444panel" class="panel"></div>
+<code class="accordion" id ="445" onclick="clickedLine(this)">                case &quot;equals&quot;:</code><div id="445panel" class="panel"></div>
+<code class="accordion" id ="446" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %b%n&quot;,</code><div id="446panel" class="panel"></div>
+<code class="accordion" id ="447" onclick="clickedLine(this)">                                      arg,</code><div id="447panel" class="panel"></div>
+<code class="accordion" id ="448" onclick="clickedLine(this)">                                      stack[top - 2].equals(stack[top - 1]));</code><div id="448panel" class="panel"></div>
+<code class="accordion" id ="449" onclick="clickedLine(this)">                    continue;</code><div id="449panel" class="panel"></div>
+<code class="accordion" id ="450" onclick="clickedLine(this)"></code><div id="450panel" class="panel"></div>
+<code class="accordion" id ="451" onclick="clickedLine(this)">                case &quot;intValue&quot;:</code><div id="451panel" class="panel"></div>
+<code class="accordion" id ="452" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %d%n&quot;,</code><div id="452panel" class="panel"></div>
+<code class="accordion" id ="453" onclick="clickedLine(this)">                                      arg, stack[top - 1].intValue());</code><div id="453panel" class="panel"></div>
+<code class="accordion" id ="454" onclick="clickedLine(this)">                    continue;</code><div id="454panel" class="panel"></div>
+<code class="accordion" id ="455" onclick="clickedLine(this)">                case &quot;longValue&quot;:</code><div id="455panel" class="panel"></div>
+<code class="accordion" id ="456" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %d%n&quot;,</code><div id="456panel" class="panel"></div>
+<code class="accordion" id ="457" onclick="clickedLine(this)">                                      arg, stack[top - 1].longValue());</code><div id="457panel" class="panel"></div>
+<code class="accordion" id ="458" onclick="clickedLine(this)">                    continue;</code><div id="458panel" class="panel"></div>
+<code class="accordion" id ="459" onclick="clickedLine(this)">                case &quot;doubleValue&quot;:</code><div id="459panel" class="panel"></div>
+<code class="accordion" id ="460" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %.15e%n&quot;,</code><div id="460panel" class="panel"></div>
+<code class="accordion" id ="461" onclick="clickedLine(this)">                                      arg, stack[top - 1].doubleValue());</code><div id="461panel" class="panel"></div>
+<code class="accordion" id ="462" onclick="clickedLine(this)">                    continue;</code><div id="462panel" class="panel"></div>
+<code class="accordion" id ="463" onclick="clickedLine(this)">                case &quot;floatValue&quot;:</code><div id="463panel" class="panel"></div>
+<code class="accordion" id ="464" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %.7e%n&quot;,</code><div id="464panel" class="panel"></div>
+<code class="accordion" id ="465" onclick="clickedLine(this)">                                      arg, stack[top - 1].floatValue());</code><div id="465panel" class="panel"></div>
+<code class="accordion" id ="466" onclick="clickedLine(this)">                    continue;</code><div id="466panel" class="panel"></div>
+<code class="accordion" id ="467" onclick="clickedLine(this)"></code><div id="467panel" class="panel"></div>
+<code class="accordion" id ="468" onclick="clickedLine(this)">                case &quot;compareTo&quot;:</code><div id="468panel" class="panel"></div>
+<code class="accordion" id ="469" onclick="clickedLine(this)">                    System.out.printf(&quot;%s: %d%n&quot;,</code><div id="469panel" class="panel"></div>
+<code class="accordion" id ="470" onclick="clickedLine(this)">                                      arg,</code><div id="470panel" class="panel"></div>
+<code class="accordion" id ="471" onclick="clickedLine(this)">                                      stack[top - 2].compareTo(stack[top - 1]));</code><div id="471panel" class="panel"></div>
+<code class="accordion" id ="472" onclick="clickedLine(this)">                    continue;</code><div id="472panel" class="panel"></div>
+<code class="accordion" id ="473" onclick="clickedLine(this)"></code><div id="473panel" class="panel"></div>
+<code class="accordion" id ="474" onclick="clickedLine(this)">                case &quot;formatTo&quot;:</code><div id="474panel" class="panel"></div>
+<code class="accordion" id ="475" onclick="clickedLine(this)">                    System.err.print(&quot;Enter format string: &quot;);</code><div id="475panel" class="panel"></div>
+<code class="accordion" id ="476" onclick="clickedLine(this)">                    try {</code><div id="476panel" class="panel"></div>
+<code class="accordion" id ="477" onclick="clickedLine(this)">                        System.out.printf(&quot;%s: &quot; + input.next() + &quot;%n&quot;,</code><div id="477panel" class="panel"></div>
+<code class="accordion" id ="478" onclick="clickedLine(this)">                                          arg, stack[top - 1]);</code><div id="478panel" class="panel"></div>
+<code class="accordion" id ="479" onclick="clickedLine(this)">                    } catch (NoSuchElementException x) {</code><div id="479panel" class="panel"></div>
+<code class="accordion" id ="480" onclick="clickedLine(this)">                        System.err.println(&quot;no input&quot;);</code><div id="480panel" class="panel"></div>
+<code class="accordion" id ="481" onclick="clickedLine(this)">                        System.exit(1);</code><div id="481panel" class="panel"></div>
+<code class="accordion" id ="482" onclick="clickedLine(this)">                    }</code><div id="482panel" class="panel"></div>
+<code class="accordion" id ="483" onclick="clickedLine(this)">                    continue;</code><div id="483panel" class="panel"></div>
+<code class="accordion" id ="484" onclick="clickedLine(this)"></code><div id="484panel" class="panel"></div>
+<code class="accordion" id ="485" onclick="clickedLine(this)">                case &quot;ZERO&quot;:</code><div id="485panel" class="panel"></div>
+<code class="accordion" id ="486" onclick="clickedLine(this)">                    stack[top++] = Rational.ZERO;</code><div id="486panel" class="panel"></div>
+<code class="accordion" id ="487" onclick="clickedLine(this)">                    continue;</code><div id="487panel" class="panel"></div>
+<code class="accordion" id ="488" onclick="clickedLine(this)">                case &quot;ONE&quot;:</code><div id="488panel" class="panel"></div>
+<code class="accordion" id ="489" onclick="clickedLine(this)">                    stack[top++] = Rational.ONE;</code><div id="489panel" class="panel"></div>
+<code class="accordion" id ="490" onclick="clickedLine(this)">                    continue;</code><div id="490panel" class="panel"></div>
+<code class="accordion" id ="491" onclick="clickedLine(this)">                case &quot;MAX_VALUE&quot;:</code><div id="491panel" class="panel"></div>
+<code class="accordion" id ="492" onclick="clickedLine(this)">                    stack[top++] = Rational.MAX_VALUE;</code><div id="492panel" class="panel"></div>
+<code class="accordion" id ="493" onclick="clickedLine(this)">                    continue;</code><div id="493panel" class="panel"></div>
+<code class="accordion" id ="494" onclick="clickedLine(this)">                case &quot;MIN_VALUE&quot;:</code><div id="494panel" class="panel"></div>
+<code class="accordion" id ="495" onclick="clickedLine(this)">                    stack[top++] = Rational.MIN_VALUE;</code><div id="495panel" class="panel"></div>
+<code class="accordion" id ="496" onclick="clickedLine(this)">                    continue;</code><div id="496panel" class="panel"></div>
+<code class="accordion" id ="497" onclick="clickedLine(this)"></code><div id="497panel" class="panel"></div>
+<code class="accordion" id ="498" onclick="clickedLine(this)">                case &quot;int&quot;:</code><div id="498panel" class="panel"></div>
+<code class="accordion" id ="499" onclick="clickedLine(this)">                    System.err.print(&quot;Enter integer: &quot;);</code><div id="499panel" class="panel"></div>
+<code class="accordion" id ="500" onclick="clickedLine(this)">                    try {</code><div id="500panel" class="panel"></div>
+<code class="accordion" id ="501" onclick="clickedLine(this)">                        stack[top] = Rational.valueOf(input.nextInt());</code><div id="501panel" class="panel"></div>
+<code class="accordion" id ="502" onclick="clickedLine(this)">                        ++top;</code><div id="502panel" class="panel"></div>
+<code class="accordion" id ="503" onclick="clickedLine(this)">                    } catch (NoSuchElementException x) {</code><div id="503panel" class="panel"></div>
+<code class="accordion" id ="504" onclick="clickedLine(this)">                        System.err.println(input.next() + &quot;: invalid input&quot;);</code><div id="504panel" class="panel"></div>
+<code class="accordion" id ="505" onclick="clickedLine(this)">                        System.exit(1);</code><div id="505panel" class="panel"></div>
+<code class="accordion" id ="506" onclick="clickedLine(this)">                    }</code><div id="506panel" class="panel"></div>
+<code class="accordion" id ="507" onclick="clickedLine(this)">                    continue;</code><div id="507panel" class="panel"></div>
+<code class="accordion" id ="508" onclick="clickedLine(this)">                case &quot;intint&quot;:</code><div id="508panel" class="panel"></div>
+<code class="accordion" id ="509" onclick="clickedLine(this)">                    System.err.print(&quot;Enter numerator and denominator: &quot;);</code><div id="509panel" class="panel"></div>
+<code class="accordion" id ="510" onclick="clickedLine(this)">                    try {</code><div id="510panel" class="panel"></div>
+<code class="accordion" id ="511" onclick="clickedLine(this)">                        stack[top] = Rational.valueOf(input.nextInt(),</code><div id="511panel" class="panel"></div>
+<code class="accordion" id ="512" onclick="clickedLine(this)">                                                      input.nextInt());</code><div id="512panel" class="panel"></div>
+<code class="accordion" id ="513" onclick="clickedLine(this)">                        ++top;</code><div id="513panel" class="panel"></div>
+<code class="accordion" id ="514" onclick="clickedLine(this)">                    } catch (NoSuchElementException x) {</code><div id="514panel" class="panel"></div>
+<code class="accordion" id ="515" onclick="clickedLine(this)">                        System.err.println(input.next() + &quot;: invalid input&quot;);</code><div id="515panel" class="panel"></div>
+<code class="accordion" id ="516" onclick="clickedLine(this)">                        System.exit(1);</code><div id="516panel" class="panel"></div>
+<code class="accordion" id ="517" onclick="clickedLine(this)">                    }</code><div id="517panel" class="panel"></div>
+<code class="accordion" id ="518" onclick="clickedLine(this)">                    continue;</code><div id="518panel" class="panel"></div>
+<code class="accordion" id ="519" onclick="clickedLine(this)">                default:</code><div id="519panel" class="panel"></div>
+<code class="accordion" id ="520" onclick="clickedLine(this)">                    stack[top] = Rational.valueOf(arg);</code><div id="520panel" class="panel"></div>
+<code class="accordion" id ="521" onclick="clickedLine(this)">                    ++top;</code><div id="521panel" class="panel"></div>
+<code class="accordion" id ="522" onclick="clickedLine(this)">                    continue;</code><div id="522panel" class="panel"></div>
+<code class="accordion" id ="523" onclick="clickedLine(this)">                }</code><div id="523panel" class="panel"></div>
+<code class="accordion" id ="524" onclick="clickedLine(this)"></code><div id="524panel" class="panel"></div>
+<code class="accordion" id ="525" onclick="clickedLine(this)">                System.out.println(arg);</code><div id="525panel" class="panel"></div>
+<code class="accordion" id ="526" onclick="clickedLine(this)"></code><div id="526panel" class="panel"></div>
+<code class="accordion" id ="527" onclick="clickedLine(this)">            } catch (ArrayIndexOutOfBoundsException x) {</code><div id="527panel" class="panel"></div>
+<code class="accordion" id ="528" onclick="clickedLine(this)">                System.err.println(arg + &quot;: missing operand&quot;);</code><div id="528panel" class="panel"></div>
+<code class="accordion" id ="529" onclick="clickedLine(this)">                System.exit(1);</code><div id="529panel" class="panel"></div>
+<code class="accordion" id ="530" onclick="clickedLine(this)">            } catch (NumberFormatException x) {</code><div id="530panel" class="panel"></div>
+<code class="accordion" id ="531" onclick="clickedLine(this)">                System.err.println(x.getMessage() + &quot;: not a rational number&quot;);</code><div id="531panel" class="panel"></div>
+<code class="accordion" id ="532" onclick="clickedLine(this)">            } catch (ArithmeticException x) {</code><div id="532panel" class="panel"></div>
+<code class="accordion" id ="533" onclick="clickedLine(this)">                System.err.println(x.getMessage());</code><div id="533panel" class="panel"></div>
+<code class="accordion" id ="534" onclick="clickedLine(this)">            } catch (IllegalFormatException x) {</code><div id="534panel" class="panel"></div>
+<code class="accordion" id ="535" onclick="clickedLine(this)">                System.err.printf(&quot;%s: %s%n&quot;, arg, x);</code><div id="535panel" class="panel"></div>
+<code class="accordion" id ="536" onclick="clickedLine(this)">            } catch (IllegalArgumentException x) {</code><div id="536panel" class="panel"></div>
+<code class="accordion" id ="537" onclick="clickedLine(this)">                System.err.println(x.getMessage());</code><div id="537panel" class="panel"></div>
+<code class="accordion" id ="538" onclick="clickedLine(this)">            }</code><div id="538panel" class="panel"></div>
+<code class="accordion" id ="539" onclick="clickedLine(this)">        }</code><div id="539panel" class="panel"></div>
+<code class="accordion" id ="540" onclick="clickedLine(this)"></code><div id="540panel" class="panel"></div>
+<code class="accordion" id ="541" onclick="clickedLine(this)">        for (int j = 0; j &lt; top; ++j) {</code><div id="541panel" class="panel"></div>
+<code class="accordion" id ="542" onclick="clickedLine(this)">            System.out.printf(&quot;%d: %s (%.15e)%n&quot;,</code><div id="542panel" class="panel"></div>
+<code class="accordion" id ="543" onclick="clickedLine(this)">                              j, stack[j], stack[j].doubleValue());</code><div id="543panel" class="panel"></div>
+<code class="accordion" id ="544" onclick="clickedLine(this)">        }</code><div id="544panel" class="panel"></div>
+<code class="accordion" id ="545" onclick="clickedLine(this)">    }</code><div id="545panel" class="panel"></div>
+<code class="accordion" id ="546" onclick="clickedLine(this)">}</code><div id="546panel" class="panel"></div>
+<code class="accordion" id ="547" onclick="clickedLine(this)"></code><div id="547panel" class="panel"></div>
+
+	</div>
+<div class="result"><p id="resultInvokes">66,Konstruktor,Rational,Rational(long/ long),(5),
+85,Konstruktor,Rational,Rational(long/ long),(5),
+97,Konstruktor,java.util.Scanner,Scanner(String),(21),
+98,Instanzmethode,java.util.Scanner,hasNext(java.util.regex.Pattern),(28),
+99,Konstruktor,java.lang.NumberFormatException,NumberFormatException(String),(34),
+102,Instanzmethode,java.util.Scanner,useDelimiter(String),(37),
+103,Instanzmethode,java.util.Scanner,nextInt(),(41),
+103,Instanzmethode,java.util.Scanner,nextInt(),(41),
+103,Konstruktor,Rational,Rational(long/ long),(5),
+108,Konstruktor,java.lang.Number,Number(),(45),
+110,Konstruktor,java.lang.IllegalArgumentException,IllegalArgumentException(String),(54),
+119,Klassenmethode,java.lang.Long,signum(long),(62),
+119,Klassenmethode,java.lang.Long,signum(long),(62),
+120,Klassenmethode,java.lang.Math,abs(long),(68),
+121,Klassenmethode,java.lang.Math,abs(long),(68),
+124,Klassenmethode,Rational,gcd(long/ long),(74),
+131,Klassenmethode,java.lang.Long,valueOf(long),(88),
+131,Klassenmethode,java.lang.Long,valueOf(long),(88),
+131,Klassenmethode,java.lang.String,format(String/ Object[]),(92),
+131,Konstruktor,java.lang.ArithmeticException,ArithmeticException(String),(98),
+136,Klassenmethode,java.lang.Long,valueOf(long),(88),
+136,Klassenmethode,java.lang.Long,valueOf(long),(88),
+136,Klassenmethode,java.lang.String,format(String/ Object[]),(92),
+136,Konstruktor,java.lang.ArithmeticException,ArithmeticException(String),(98),
+159,Klassenmethode,java.lang.Math,max(long/ long),(101),
+199,Konstruktor,Rational,Rational(long/ long),(5),
+207,Konstruktor,Rational,Rational(long/ long),(5),
+217,Konstruktor,Rational,Rational(long/ long),(5),
+224,Konstruktor,Rational,Rational(long/ long),(5),
+234,Konstruktor,Rational,Rational(long/ long),(5),
+241,Konstruktor,Rational,Rational(long/ long),(5),
+252,Konstruktor,Rational,Rational(long/ long),(5),
+262,Konstruktor,java.lang.IllegalArgumentException,IllegalArgumentException(String),(54),
+267,Konstruktor,Rational,Rational(long/ long),(5),
+278,Konstruktor,java.lang.StringBuilder,StringBuilder(),(110),
+279,Instanzmethode,java.lang.StringBuilder,append(int),(111),
+280,Instanzmethode,java.lang.StringBuilder,append(char),(115),
+281,Instanzmethode,java.lang.StringBuilder,append(int),(111),
+282,Instanzmethode,java.lang.StringBuilder,toString(),(118),
+318,Instanzmethode,Rational,doubleValue(),(122),
+347,Konstruktor,java.util.IllegalFormatPrecisionException,IllegalFormatPrecisionException(int),(128),
+351,Konstruktor,java.util.FormatFlagsConversionMismatchException,FormatFlagsConversionMismatchException(String/ char),(135),
+354,Instanzmethode,Rational,toString(),(138),
+356,Instanzmethode,java.lang.String,length(),(139),
+357,Instanzmethode,java.util.Formatter,format(String/ Object[]),(142),
+362,Instanzmethode,java.util.Formatter,format(String/ Object[]),(142),
+366,Instanzmethode,java.util.Formatter,format(String/ Object[]),(142),
+20,Instanzmethode,Rational,compareTo(Rational),(151),
+26,Konstruktor,Rational,Rational(long/ long),(5),
+31,Konstruktor,Rational,Rational(long/ long),(5),
+36,Konstruktor,Rational,Rational(long/ long),(5),
+43,Konstruktor,Rational,Rational(long/ long),(5),
+106,Klassenmethode,java.util.regex.Pattern,compile(String),(160),
+</p></div>
+<script>
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+			acc[i].addEventListener("click", function () {
+				var panel = this.nextElementSibling;
+				if (panel.innerHTML != "") {
+					this.classList.toggle("active");
+					if (panel.style.display === "block") {
+						panel.style.display = "none";
+					} else {
+						panel.style.display = "block";
+					}
+				}
+			});
+		}
+	</script></body>
+</html>
